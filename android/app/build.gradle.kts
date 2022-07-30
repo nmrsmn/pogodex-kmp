@@ -28,7 +28,7 @@ android {
 }
 
 dependencies {
-    implementation(project(":shared:shared"))
+    implementation(project(":shared:library"))
 
     implementation(libs.bundles.compose)
 }

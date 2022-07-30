@@ -13,6 +13,8 @@ android-activity = "1.4.0"
 android-compose-libs = "1.2.0"
 android-compose-compiler = "1.3.0-rc01"
 
+shared-library = "0.1.0"
+
 [libraries]
 android-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "android.activity" }
 compose-material = { module = "androidx.compose.material:material", version.ref = "android.compose.libs" }

@@ -11,7 +11,7 @@ pluginManagement {
 rootProject.name = "PogodexCollector"
 
 include(
-    ":shared:shared",
+    ":shared:library",
 
     ":android:app"
 )

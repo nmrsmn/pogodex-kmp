@@ -5,6 +5,8 @@ plugins {
     alias(libs.plugins.kotlin.multiplatform)
 }
 
+version = libs.versions.shared.library.get()
+
 kotlin {
     android()
     iosArm32()
