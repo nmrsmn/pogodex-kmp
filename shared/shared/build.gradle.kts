@@ -1,6 +1,8 @@
+@file:Suppress("DSL_SCOPE_VIOLATION")
+
 plugins {
-    kotlin("multiplatform")
-    id("com.android.library")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.multiplatform)
 }
 
 kotlin {
@@ -9,10 +11,10 @@ kotlin {
 }
 
 android {
-    compileSdk = 31
+    compileSdk = libs.versions.android.sdk.compile.int()
 
     defaultConfig {
-        minSdk = 23
-        targetSdk = 31
+        minSdk = libs.versions.android.sdk.min.int()
+        targetSdk = libs.versions.android.sdk.target.int()
     }
 }
