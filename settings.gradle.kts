@@ -9,3 +9,8 @@ pluginManagement {
     }
 }
 
+rootProject.name = "PogodexCollector"
+
+include(
+    ":shared:shared"
+)
