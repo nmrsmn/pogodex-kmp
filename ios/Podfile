@@ -1,0 +1,5 @@
+target 'PogodexCollector' do
+  use_frameworks!
+  platform :ios, '14.1'
+  pod 'PogodexLibrary', :path => '../shared/library'
+end

@@ -3,6 +3,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.native.cocoapods)
 }
 
 version = libs.versions.shared.library.get()
@@ -39,6 +40,17 @@ kotlin {
         with(nativeTargets) {
             map { "${it}Main" }.forEach { getByName(it).dependsOn(darwinMain) }
             map { "${it}Test" }.forEach { getByName(it).dependsOn(darwinTest) }
+        }
+    }
+
+    cocoapods {
+        name = "PogodexLibrary"
+        summary = "Shared library for the pogodex app"
+        homepage = "Link to the Shared Module homepage"
+        ios.deploymentTarget = "14.1"
+        podfile = project.file("../../ios/Podfile")
+        framework {
+            baseName = "PogodexLibrary"
         }
     }
 }

@@ -52,6 +52,11 @@ captures/
 .classpath
 .project
 
+# iOS
+*.podspec
+Podfile.lock
+*/Pods
+
 ## Playgrounds
 timeline.xctimeline
 playground.xcworkspace
@@ -78,5 +83,3 @@ DerivedData/
 !default.mode2v3
 *.perspectivev3
 !default.perspectivev3
-
-*.xcuserstate
