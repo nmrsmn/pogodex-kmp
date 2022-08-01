@@ -3,10 +3,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.multiplatform)
-    alias(libs.plugins.kotlin.native.cocoapods)
 }
-
-version = libs.versions.shared.library.get()
 
 kotlin {
     android()
@@ -23,12 +20,7 @@ kotlin {
     )
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                api(project(":shared:domain:pokemon:api"))
-                implementation(project(":shared:domain:pokemon:implementation"))
-            }
-        }
+        val commonMain by getting
         val commonTest by getting
 
         val darwinMain by creating {
@@ -44,32 +36,12 @@ kotlin {
             map { "${it}Test" }.forEach { getByName(it).dependsOn(darwinTest) }
         }
     }
-
-    cocoapods {
-        name = "PogodexLibrary"
-        summary = "Shared library for the pogodex app"
-        homepage = "Link to the Shared Module homepage"
-        ios.deploymentTarget = "14.1"
-        podfile = project.file("../../ios/Podfile")
-        framework {
-            isStatic = false
-            transitiveExport = true
-
-            baseName = "PogodexLibrary"
-        }
-    }
 }
 
 android {
     compileSdk = libs.versions.android.sdk.compile.int()
 
-    namespace = "dev.nmrsmn.pogodex.shared"
-
-    sourceSets.getByName("main") {
-        manifest {
-            srcFile("src/androidMain/AndroidManifest.xml")
-        }
-    }
+    namespace = "dev.nmrsmn.pogodex.shared.domain.pokemon.implementation"
 
     defaultConfig {
         minSdk = libs.versions.android.sdk.min.int()

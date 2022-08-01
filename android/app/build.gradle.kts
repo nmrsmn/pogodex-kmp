@@ -29,6 +29,7 @@ android {
 
 dependencies {
     implementation(project(":shared:library"))
+    implementation(project(":shared:domain:pokemon:implementation"))
 
     implementation(libs.bundles.compose)
 }

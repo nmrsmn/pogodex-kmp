@@ -10,7 +10,7 @@ import PogodexLibrary
 
 struct ContentView: View {
     var body: some View {
-        Text(Greeting().greeting())
+        Text(Greeting(platform: ImplementationPlatform()).greeting())
             .padding()
     }
 }

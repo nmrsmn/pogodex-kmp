@@ -1,7 +1,7 @@
 package dev.nmrsmn.pogodex.shared
 
-object Greeting {
+class Greeting(private val platform: Platform) {
     fun greeting(): String {
-        return "Hello, ${Platform().platform}"
+        return "Hello, ${platform.name}"
     }
 }
