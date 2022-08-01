@@ -26,7 +26,10 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 api(project(":shared:domain:pokemon:api"))
+
                 implementation(project(":shared:domain:pokemon:implementation"))
+
+                implementation(libs.koin.core)
             }
         }
         val commonTest by getting

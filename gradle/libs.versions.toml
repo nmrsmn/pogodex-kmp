@@ -4,6 +4,8 @@ gradle-plugin = "7.2.1"
 
 kotlin = "1.7.10"
 
+koin = "3.2.0-beta-1"
+
 android-build-tools = "30.0.3"
 android-sdk-compile = "32"
 android-sdk-min = "29"
@@ -22,6 +24,8 @@ compose-material-icons = { module = "androidx.compose.material:material-icons-ex
 compose-ui = { module = "androidx.compose.ui:ui", version.ref = "android.compose.libs" }
 compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling", version.ref = "android.compose.libs" }
 compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview", version.ref = "android.compose.libs" }
+koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
+koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 
 [bundles]
 compose = ["android-activity-compose", "compose-material", "compose-material-icons", "compose-ui", "compose-ui-tooling", "compose-ui-tooling-preview"]

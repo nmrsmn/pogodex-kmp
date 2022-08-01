@@ -5,11 +5,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.material.Text
 import dev.nmrsmn.pogodex.shared.Greeting
-import dev.nmrsmn.pogodex.shared.Platform
+import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
 
-    private val greeting: Greeting = Greeting(Platform())
+    private val greeting: Greeting by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

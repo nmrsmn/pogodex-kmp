@@ -31,5 +31,8 @@ dependencies {
     implementation(project(":shared:library"))
     implementation(project(":shared:domain:pokemon:implementation"))
 
+    implementation(libs.koin.core)
+    implementation(libs.koin.android)
+
     implementation(libs.bundles.compose)
 }

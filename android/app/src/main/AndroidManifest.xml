@@ -3,6 +3,7 @@
     package="dev.nmrsmn.pogodex">
 
     <application
+        android:name=".PogodexCollectorApplication"
         android:allowBackup="false"
         android:supportsRtl="true">
 
