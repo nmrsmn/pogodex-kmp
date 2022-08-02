@@ -9,9 +9,20 @@ import SwiftUI
 import PogodexLibrary
 
 struct ContentView: View {
+    @State var text = "Waiting..."
+    
     var body: some View {
-        Text(GreetingHelper().greet())
+        Text(text)
             .padding()
+            .onAppear {
+                Task {
+                    do {
+                        text = try await GreetingHelper().greet()
+                    } catch {
+                        text = error.localizedDescription
+                    }
+                }
+            }
     }
 }
 

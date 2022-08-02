@@ -7,7 +7,7 @@ import org.koin.core.component.inject
 
 class GreetingHelper: KoinComponent {
     private val greeting : Greeting by inject()
-    fun greet() : String = greeting.greeting()
+    suspend fun greet() : String = greeting.greeting()
 }
 
 fun initKoinDarwin(): KoinApplication = initKoin {}

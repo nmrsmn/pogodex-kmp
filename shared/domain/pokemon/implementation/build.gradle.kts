@@ -22,6 +22,7 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
+                implementation(libs.bundles.coroutines)
                 implementation(libs.koin.core)
             }
         }

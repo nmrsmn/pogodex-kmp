@@ -29,6 +29,7 @@ kotlin {
 
                 implementation(project(":shared:domain:pokemon:implementation"))
 
+                implementation(libs.bundles.coroutines)
                 implementation(libs.koin.core)
             }
         }
