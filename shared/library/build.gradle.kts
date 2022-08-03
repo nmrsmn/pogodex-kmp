@@ -36,7 +36,7 @@ kotlin {
         val commonTest by getting {
             dependencies {
                 implementation(libs.bundles.kotlin.multiplatform.test)
-                implementation(libs.bundles.mockk)
+                implementation(libs.mockk.common)
             }
         }
 

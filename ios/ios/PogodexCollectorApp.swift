@@ -22,7 +22,7 @@ struct PogodexCollectorApp: App {
 
 class AppDelegate: NSObject, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
-        KoinKt.doInitKoinDarwin()
+        KoinKt.doInitKoin()
         return true
     }
 }
