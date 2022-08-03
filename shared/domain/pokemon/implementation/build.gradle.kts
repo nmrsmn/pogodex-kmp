@@ -26,7 +26,12 @@ kotlin {
                 implementation(libs.koin.core)
             }
         }
-        val commonTest by getting
+        val commonTest by getting {
+            dependencies {
+                implementation(libs.bundles.kotlin.multiplatform.test)
+                implementation(libs.bundles.mockk)
+            }
+        }
 
         val darwinMain by creating {
             dependsOn(commonMain)
