@@ -18,27 +18,3 @@ allprojects {
 tasks.register("clean", Delete::class) {
     delete(rootProject.buildDir)
 }
-
-afterEvaluate {
-    tasks.withType<JavaCompile>().configureEach {
-        sourceCompatibility = JavaVersion.VERSION_11.toString()
-        targetCompatibility = JavaVersion.VERSION_11.toString()
-    }
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "11"
-    }
-}
-
-/**
- * Disable iosTest Task for now. Using mockk causes the build to fail. Revisit later.
- */
-project.gradle.startParameter.excludedTaskNames.addAll(
-    listOf(
-        "compileTestKotlinIosSimulatorArm64",
-        "compileTestKotlinIosArm64",
-        "compileTestKotlinIosX64"
-    )
-)

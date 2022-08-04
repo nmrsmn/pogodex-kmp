@@ -21,6 +21,9 @@ mockk = "1.12.3"
 shared-library = "0.1.0"
 
 [libraries]
+android-gradle = { group = "com.android.tools.build", name = "gradle", version.ref = "gradle.plugin" }
+kotlin-gradle = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "kotlin.core" }
+
 android-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "android.activity" }
 compose-material = { module = "androidx.compose.material:material", version.ref = "android.compose.libs" }
 compose-material-icons = { module = "androidx.compose.material:material-icons-extended", version.ref = "android.compose.libs" }
