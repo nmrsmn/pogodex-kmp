@@ -16,6 +16,7 @@ android {
 
 dependencies {
     implementation(project(":shared:library"))
+    implementation(project(":shared:core:util"))
     implementation(project(":shared:domain:pokemon:implementation"))
 
     implementation(libs.koin.core)

@@ -6,8 +6,6 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                implementation(project(":shared:core:util"))
-
                 implementation(libs.bundles.coroutines)
                 implementation(libs.koin.core)
             }
@@ -22,5 +20,5 @@ kotlin {
 }
 
 android {
-    namespace = "dev.nmrsmn.pogodex.shared.domain.pokemon.implementation"
+    namespace = "dev.nmrsmn.pogodex.shared.core.util"
 }

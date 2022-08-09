@@ -1,3 +1,4 @@
+@file:Suppress("UnstableApiUsage")
 
 import com.android.build.gradle.LibraryExtension
 import dev.nmrsmn.build.logic.configureKotlinAndroid
@@ -18,6 +19,15 @@ class KotlinMultiplatformLibraryConventionPlugin: Plugin<Project> {
         "androidTestFixtures",
         "androidTestFixturesDebug",
         "androidTestFixturesRelease"
+    )
+
+    private val optIns = setOf(
+        "kotlin.Experimental",
+        "kotlin.RequiresOptIn",
+        "kotlinx.coroutines.ExperimentalCoroutinesApi",
+        "kotlinx.coroutines.FlowPreview",
+        "kotlinx.serialization.ExperimentalSerializationApi",
+        "kotlin.experimental.ExperimentalTypeInference"
     )
 
     override fun apply(target: Project) {
@@ -46,10 +56,18 @@ class KotlinMultiplatformLibraryConventionPlugin: Plugin<Project> {
 
                 with(nativeTargets) {
                     map { "${it}Main" }.forEach { sourceSets.getByName(it).dependsOn(darwinMain) }
-                    map { "${it}Main" }.forEach { sourceSets.getByName(it).dependsOn(darwinTest) }
+                    map { "${it}Test" }.forEach { sourceSets.getByName(it).dependsOn(darwinTest) }
                 }
 
                 sourceSets.removeIf { set -> removeSourceSets.contains(set.name) }
+
+                sourceSets.all {
+                    languageSettings.apply {
+                        optIns.forEach { annotation ->
+                            optIn(annotation)
+                        }
+                    }
+                }
             }
 
             extensions.configure<LibraryExtension> {
@@ -61,23 +79,17 @@ class KotlinMultiplatformLibraryConventionPlugin: Plugin<Project> {
                     }
                 }
             }
+
+            /**
+             * Disable iosTest Task for now. Using mockk causes the build to fail. Revisit later.
+             */
+            gradle.startParameter.excludedTaskNames.addAll(
+                listOf(
+                    "compileTestKotlinIosSimulatorArm64",
+                    "compileTestKotlinIosArm64",
+                    "compileTestKotlinIosX64"
+                )
+            )
         }
     }
 }
-
-//    }
-//
-//    cocoapods {
-//        name = "PogodexLibrary"
-//        summary = "Shared library for the pogodex app"
-//        homepage = "Link to the Shared Module homepage"
-//        ios.deploymentTarget = "14.1"
-//        podfile = project.file("../../ios/Podfile")
-//        framework {
-//            isStatic = false
-//            transitiveExport = true
-//
-//            baseName = "PogodexLibrary"
-//        }
-//    }
-//}

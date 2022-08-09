@@ -13,6 +13,8 @@ kotlin {
             dependencies {
                 api(project(":shared:domain:pokemon:api"))
 
+                implementation(project(":shared:core:util"))
+
                 implementation(project(":shared:domain:pokemon:implementation"))
 
                 implementation(libs.bundles.coroutines)

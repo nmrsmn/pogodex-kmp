@@ -31,26 +31,18 @@ struct ContentView: View {
         .onAppear {
             Task {
                 do {
-                    try await CounterServiceHelper().service.counter.collect(collector: CounterCollector { count in
-                        self.counter = count
+                    // Option 1; Can also provide fail option
+                    try await CounterServiceHelper().service.counter.collect(collector: Observer<KotlinInt> { value in
+                        self.counter = value.intValue
                     })
+                    
+                    // Option 2
+                    try await CounterServiceHelper().service.counter.watch { value in
+                        self.counter = value?.intValue ?? 0
+                    }
                 } catch {
                     text = error.localizedDescription
                 }
-            }
-        }
-    }
-    
-    class CounterCollector : Kotlinx_coroutines_coreFlowCollector {
-        let onEmit: (Int) -> Void
-        
-        init(_ onEmit: @escaping (Int) -> Void) {
-            self.onEmit = onEmit
-        }
-        
-        func emit(value: Any?) async throws {
-            if let value = value as? Int {
-                onEmit(value)
             }
         }
     }
@@ -59,5 +51,26 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
+    }
+}
+
+typealias Collector = UtilCommonFlowCollector
+class Observer<T> : Collector {
+    let callback: (T) -> Void
+    let fail: (Error) -> Void
+    
+    init(callback: @escaping (T) -> Void, fail: @escaping (Error) -> Void = { _ in }) {
+        self.callback = callback
+        self.fail = fail
+    }
+    
+    func emit(value: Any?) async throws {
+        if let value = value as? T {
+            callback(value)
+        }
+    }
+    
+    func fail(exception: KotlinException) async throws {
+        self.fail(exception.asError())
     }
 }
