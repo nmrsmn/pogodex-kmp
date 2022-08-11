@@ -9,6 +9,10 @@ import SwiftUI
 import PogodexLibrary
 
 struct ContentView: View {
+    
+    private var viewModel = ViewModelProvider().counter
+    @State var state: CounterViewModel.State = CounterViewModel.State(counter: 0)
+    
     @State var text = "Waiting..."
     @State var counter = 0
     
@@ -25,23 +29,21 @@ struct ContentView: View {
                         }
                     }
                 }
-            Text("\(counter)")
+            
+            Text(String(state.counter))
                 .padding()
+            
+            Button("Reset", action: {
+                Task {
+                    viewModel.actions.trySend(element: CounterViewModel.ActionReset())
+                }
+            })
         }
         .onAppear {
             Task {
-                do {
-                    // Option 1; Can also provide fail option
-                    try await CounterServiceHelper().service.counter.collect(collector: Observer<KotlinInt> { value in
-                        self.counter = value.intValue
-                    })
-                    
-                    // Option 2
-                    try await CounterServiceHelper().service.counter.watch { value in
-                        self.counter = value?.intValue ?? 0
-                    }
-                } catch {
-                    text = error.localizedDescription
+                try await viewModel.state.watch { state in
+                    guard let state = state else { return }
+                    self.state = state
                 }
             }
         }
@@ -51,26 +53,5 @@ struct ContentView: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
-    }
-}
-
-typealias Collector = UtilCommonFlowCollector
-class Observer<T> : Collector {
-    let callback: (T) -> Void
-    let fail: (Error) -> Void
-    
-    init(callback: @escaping (T) -> Void, fail: @escaping (Error) -> Void = { _ in }) {
-        self.callback = callback
-        self.fail = fail
-    }
-    
-    func emit(value: Any?) async throws {
-        if let value = value as? T {
-            callback(value)
-        }
-    }
-    
-    func fail(exception: KotlinException) async throws {
-        self.fail(exception.asError())
     }
 }

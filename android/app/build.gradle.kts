@@ -19,6 +19,8 @@ dependencies {
     implementation(project(":shared:core:util"))
     implementation(project(":shared:domain:pokemon:implementation"))
 
+    implementation(libs.android.viewmodel)
+
     implementation(libs.koin.core)
     implementation(libs.koin.android)
 

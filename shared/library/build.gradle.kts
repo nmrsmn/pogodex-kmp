@@ -15,7 +15,7 @@ kotlin {
 
                 implementation(project(":shared:core:util"))
 
-                implementation(project(":shared:domain:pokemon:implementation"))
+                api(project(":shared:domain:pokemon:implementation"))
 
                 implementation(libs.bundles.coroutines)
                 implementation(libs.koin.core)
@@ -40,6 +40,8 @@ kotlin {
             transitiveExport = true
 
             baseName = "PogodexLibrary"
+
+            export(project(":shared:domain:pokemon:implementation"))
         }
     }
 }

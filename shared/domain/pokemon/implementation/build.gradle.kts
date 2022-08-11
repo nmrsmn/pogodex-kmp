@@ -18,6 +18,12 @@ kotlin {
                 implementation(libs.mockk.common)
             }
         }
+
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.android.viewmodel)
+            }
+        }
     }
 }
 
