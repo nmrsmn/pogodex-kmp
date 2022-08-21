@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(text)
                 Text("${state.counter}")
-                Button(onClick = { viewModel.execute(CounterViewModel.Action.Reset) }) {
+                Button(onClick = { viewModel.actions.trySend(CounterViewModel.Action.Reset) }) {
                     Text("Reset!")
                 }
             }

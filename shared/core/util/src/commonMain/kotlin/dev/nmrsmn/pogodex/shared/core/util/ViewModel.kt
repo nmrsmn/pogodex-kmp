@@ -18,7 +18,6 @@ expect open class ViewModelScope() {
 }
 
 abstract class ViewModel<Action, State>(initial: State): ViewModelScope() {
-
     @Suppress("MemberVisibilityCanBePrivate")
     val actions = Channel<Action>()
     private val actionProcessingFlow by lazy { actions.consumeAsFlow().process() }
