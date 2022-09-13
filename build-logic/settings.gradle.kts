@@ -1,7 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-enableFeaturePreview("VERSION_CATALOGS")
 
 dependencyResolutionManagement {
     repositories {
@@ -14,5 +13,7 @@ dependencyResolutionManagement {
         }
     }
 }
+
+rootProject.name = "PogodexCollectorBuildLogic"
 
 include(":convention")

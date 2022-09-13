@@ -9,6 +9,7 @@ group = "dev.nmrsmn.buildlogic"
 dependencies {
     implementation(libs.android.gradle)
     implementation(libs.kotlin.gradle)
+    implementation(libs.detekt.gradle)
 }
 
 gradlePlugin {
@@ -32,6 +33,21 @@ gradlePlugin {
         register("kotlinMultiplatformLibrary") {
             id = "${namespace}.kotlin.multiplatform.library"
             implementationClass = "KotlinMultiplatformLibraryConventionPlugin"
+        }
+
+        register("kotlinMultiplatformCocoapods") {
+            id = "${namespace}.kotlin.multiplatform.cocoapods"
+            implementationClass = "KotlinMultiplatformCocoapodsConventionPlugin"
+        }
+
+        register("detekt") {
+            id = "${namespace}.kotlin.detekt"
+            implementationClass = "KotlinDetektConventionPlugin"
+        }
+
+        register("kotlinMultiplatformDetekt") {
+            id = "${namespace}.kotlin.multiplatform.detekt"
+            implementationClass = "KotlinMultiplatformDetektConventionPlugin"
         }
     }
 }
