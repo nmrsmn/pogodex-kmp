@@ -1,7 +1,15 @@
 package dev.nmrsmn.pogodex.shared.core.util
 
-import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.SupervisorJob
+import kotlinx.coroutines.cancel
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.FlowCollector
+import kotlinx.coroutines.flow.SharedFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 import kotlin.properties.ReadOnlyProperty
 
 interface ObservableFlow<T> {
@@ -18,7 +26,7 @@ class CommonFlow<T>(private val origin: Flow<T>): ObservableFlow<T>, Flow<T> by 
                 collect { value ->
                     block(value)
                 }
-            } catch (e: Exception) {
+            } catch (e: CancellationException) {
                 println(e.message)
             }
         }
@@ -35,7 +43,7 @@ class CommonFlow<T>(private val origin: Flow<T>): ObservableFlow<T>, Flow<T> by 
             collect { value ->
                 collector.emit(value)
             }
-        } catch (exception: Exception) {
+        } catch (exception: CancellationException) {
             collector.fail(exception)
         }
     }
@@ -50,7 +58,7 @@ class CommonStateFlow<T>(private val origin: StateFlow<T>): ObservableFlow<T>, S
                 collect { value ->
                     block(value)
                 }
-            } catch (e: Exception) {
+            } catch (e: CancellationException) {
                 println(e.message)
             }
         }
@@ -67,7 +75,7 @@ class CommonStateFlow<T>(private val origin: StateFlow<T>): ObservableFlow<T>, S
             collect { value ->
                 collector.emit(value)
             }
-        } catch (exception: Exception) {
+        } catch (exception: CancellationException) {
             collector.fail(exception)
         }
     }
@@ -82,7 +90,7 @@ class CommonSharedFlow<T>(private val origin: SharedFlow<T>): ObservableFlow<T>,
                 collect { value ->
                     block(value)
                 }
-            } catch (e: Exception) {
+            } catch (e: CancellationException) {
                 println(e.message)
             }
         }
@@ -99,7 +107,7 @@ class CommonSharedFlow<T>(private val origin: SharedFlow<T>): ObservableFlow<T>,
             collect { value ->
                 collector.emit(value)
             }
-        } catch (exception: Exception) {
+        } catch (exception: CancellationException) {
             collector.fail(exception)
         }
     }
@@ -107,6 +115,7 @@ class CommonSharedFlow<T>(private val origin: SharedFlow<T>): ObservableFlow<T>,
 
 interface CommonFlowCollector<T> : FlowCollector<T> {
     suspend fun fail(exception: Exception)
+    override suspend fun emit(value: T)
 }
 
 interface Cancellable {
