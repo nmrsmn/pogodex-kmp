@@ -2,7 +2,8 @@
 
 plugins {
     id("dev.nmrsmn.kotlin.multiplatform.library")
-    alias(libs.plugins.kotlin.native.cocoapods)
+    id("dev.nmrsmn.kotlin.multiplatform.cocoapods")
+    id("dev.nmrsmn.kotlin.multiplatform.detekt")
 }
 
 version = libs.versions.shared.library.get()

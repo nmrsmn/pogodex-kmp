@@ -1,5 +1,6 @@
 plugins {
     id("dev.nmrsmn.kotlin.multiplatform.library")
+    id("dev.nmrsmn.kotlin.multiplatform.detekt")
 }
 
 kotlin {

@@ -3,6 +3,7 @@
 plugins {
     id("dev.nmrsmn.android.application")
     id("dev.nmrsmn.android.application.compose")
+    id("dev.nmrsmn.kotlin.detekt")
 }
 
 android {
