@@ -4,6 +4,7 @@ plugins {
     id("dev.nmrsmn.kotlin.multiplatform.library")
     id("dev.nmrsmn.kotlin.multiplatform.cocoapods")
     id("dev.nmrsmn.kotlin.multiplatform.detekt")
+    id("dev.nmrsmn.kotlin.multiplatform.sqldelight")
 }
 
 version = libs.versions.shared.library.get()
@@ -19,6 +20,7 @@ kotlin {
                 api(project(":shared:domain:pokemon:implementation"))
 
                 implementation(libs.bundles.coroutines)
+                implementation(libs.bundles.sqldelight)
                 implementation(libs.koin.core)
             }
         }
@@ -26,6 +28,18 @@ kotlin {
             dependencies {
                 implementation(libs.bundles.kotlin.multiplatform.test)
                 implementation(libs.mockk.common)
+            }
+        }
+
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.sqldelight.android)
+            }
+        }
+
+        val darwinMain by getting {
+            dependencies {
+                implementation(libs.sqldelight.native)
             }
         }
     }

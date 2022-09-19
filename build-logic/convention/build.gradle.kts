@@ -10,6 +10,7 @@ dependencies {
     implementation(libs.android.gradle)
     implementation(libs.kotlin.gradle)
     implementation(libs.detekt.gradle)
+    implementation(libs.sqldelight.gradle)
 }
 
 gradlePlugin {
@@ -48,6 +49,11 @@ gradlePlugin {
         register("kotlinMultiplatformDetekt") {
             id = "${namespace}.kotlin.multiplatform.detekt"
             implementationClass = "KotlinMultiplatformDetektConventionPlugin"
+        }
+
+        register("kotlinMultiplatformSqlDelight") {
+            id = "${namespace}.kotlin.multiplatform.sqldelight"
+            implementationClass = "KotlinMultiplatformSqlDelightConventionPlugin"
         }
     }
 }
