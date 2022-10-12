@@ -1,0 +1,14 @@
+CREATE TABLE pokemon(
+    number INTEGER AS Int NOT NULL PRIMARY KEY,
+    name TEXT NOT NULL
+);
+
+addPokemon:
+INSERT OR REPLACE INTO pokemon(number, name)
+VALUES(?, ?);
+
+selectPokemon:
+SELECT * FROM pokemon;
+
+selectPokemonByNumber:
+SELECT * FROM pokemon WHERE number = ?;

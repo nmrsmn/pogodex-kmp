@@ -10,32 +10,22 @@ import PogodexLibrary
 
 struct ContentView: View {
     
-    private var viewModel = ViewModelProvider().counter
-    @State var state: CounterViewModel.State = CounterViewModel.State(counter: 0)
-    
+    private var viewModel = ViewModelProvider().pokemon
+
+    @State var state: PokedexViewModel.State = PokedexViewModel.State(isLoading: true, pokemon: [])
     @State var text = "Waiting..."
-    @State var counter = 0
     
     var body: some View {
         VStack {
             Text(text)
                 .padding()
-                .onAppear {
-                    Task {
-                        do {
-                            text = try await GreetingHelper().greet()
-                        } catch {
-                            text = error.localizedDescription
-                        }
-                    }
-                }
-            
-            Text(String(state.counter))
+
+            Text(String(state.pokemon.count))
                 .padding()
-            
+
             Button("Reset", action: {
                 Task {
-                    viewModel.actions.trySend(element: CounterViewModel.ActionReset())
+                    viewModel.execute(action: PokedexViewModel.ActionPokemonClicked(pokemon: Pokemon(number: 1, name: "Bulbasaur"), collection: "Caught"))
                 }
             })
         }
@@ -44,6 +34,11 @@ struct ContentView: View {
                 try await viewModel.state.watch { state in
                     guard let state = state else { return }
                     self.state = state
+                }
+            }
+            Task {
+                try await viewModel.event.watch { event in
+                    self.text = "Event!"
                 }
             }
         }

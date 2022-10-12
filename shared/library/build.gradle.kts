@@ -4,7 +4,6 @@ plugins {
     id("dev.nmrsmn.kotlin.multiplatform.library")
     id("dev.nmrsmn.kotlin.multiplatform.cocoapods")
     id("dev.nmrsmn.kotlin.multiplatform.detekt")
-    id("dev.nmrsmn.kotlin.multiplatform.sqldelight")
 }
 
 version = libs.versions.shared.library.get()
@@ -13,11 +12,12 @@ kotlin {
     sourceSets {
         val commonMain by getting {
             dependencies {
-                api(project(":shared:domain:pokemon:api"))
+                api(project(":shared:pokemon:pokedex:api"))
 
                 implementation(project(":shared:core:util"))
+                implementation(project(":shared:core:database"))
 
-                api(project(":shared:domain:pokemon:implementation"))
+                api(project(":shared:pokemon:pokedex:implementation"))
 
                 implementation(libs.bundles.coroutines)
                 implementation(libs.bundles.sqldelight)
@@ -52,11 +52,16 @@ kotlin {
         podfile = project.file("../../ios/Podfile")
         framework {
             isStatic = false
-            transitiveExport = true
 
             baseName = "PogodexLibrary"
 
-            export(project(":shared:domain:pokemon:implementation"))
+            export(project(":shared:core:database"))
+            export(project(":shared:core:util"))
+
+            export(project(":shared:pokemon:pokedex:api"))
+
+            //            transitiveExport = true
+            linkerOpts.add("-lsqlite3")
         }
     }
 }

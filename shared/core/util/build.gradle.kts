@@ -29,3 +29,7 @@ kotlin {
 android {
     namespace = "dev.nmrsmn.pogodex.shared.core.util"
 }
+
+dependencies {
+    implementation("androidx.annotation:annotation:1.5.0")
+}

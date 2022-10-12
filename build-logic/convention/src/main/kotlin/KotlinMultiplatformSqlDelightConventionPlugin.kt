@@ -1,11 +1,9 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.squareup.sqldelight.gradle.SqlDelightExtension
-import dev.nmrsmn.build.logic.version
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.configure
-import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 class KotlinMultiplatformSqlDelightConventionPlugin: Plugin<Project> {
     override fun apply(target: Project) {
@@ -16,7 +14,8 @@ class KotlinMultiplatformSqlDelightConventionPlugin: Plugin<Project> {
 
             extensions.configure<SqlDelightExtension> {
                 database("PogedexCollector") {
-                    packageName = "dev.nmrsmn.pogodex.db"
+                    packageName = "dev.nmrsmn.pogodex.database"
+                    sourceFolders = listOf("sqldelight")
                 }
             }
         }

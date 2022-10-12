@@ -17,8 +17,9 @@ android {
 
 dependencies {
     implementation(project(":shared:library"))
+    implementation(project(":shared:core:database"))
     implementation(project(":shared:core:util"))
-    implementation(project(":shared:domain:pokemon:implementation"))
+    implementation(project(":shared:pokemon:pokedex:implementation"))
 
     implementation(libs.android.viewmodel)
 

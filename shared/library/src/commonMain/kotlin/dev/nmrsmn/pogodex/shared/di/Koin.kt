@@ -1,5 +1,7 @@
 package dev.nmrsmn.pogodex.shared.di
 
+import dev.nmrsmn.pogodex.shared.core.database.di.databaseModule
+import dev.nmrsmn.pogodex.shared.pokemon.pokedex.implementation.di.pokemonModule
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import org.koin.core.context.startKoin
@@ -10,7 +12,7 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) = startKoin {
     appDeclaration()
     modules(
         dispatcherModule,
-        counterModule(),
+        databaseModule(),
         pokemonModule()
     )
 }

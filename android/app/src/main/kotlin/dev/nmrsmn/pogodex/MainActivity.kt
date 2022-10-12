@@ -13,14 +13,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
-import dev.nmrsmn.pogodex.shared.CounterViewModel
-import dev.nmrsmn.pogodex.shared.Greeting
+import androidx.compose.ui.platform.LocalLifecycleOwner
+import androidx.lifecycle.whenStarted
+import dev.nmrsmn.pogodex.shared.pokemon.pokedex.api.model.Pokemon
+import dev.nmrsmn.pogodex.shared.pokemon.pokedex.api.viewmodel.PokedexViewModel
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 import org.koin.android.ext.android.inject
 
 class MainActivity : ComponentActivity() {
 
-    private val greeting: Greeting by inject()
-    private val viewModel: CounterViewModel by inject()
+    private val viewModel: PokedexViewModel by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,14 +32,22 @@ class MainActivity : ComponentActivity() {
             var text by remember { mutableStateOf("Waiting...") }
             val state by viewModel.state.collectAsState()
 
+            val lifecycle = LocalLifecycleOwner.current.lifecycle
+
             LaunchedEffect(Unit) {
-                text = greeting.greeting()
+                lifecycle.whenStarted {
+                    launch {
+                        viewModel.event.collectLatest { event ->
+                            text = "Event!"
+                        }
+                    }
+                }
             }
 
             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                 Text(text)
-                Text("${state.counter}")
-                Button(onClick = { viewModel.actions.trySend(CounterViewModel.Action.Reset) }) {
+                Text("${state.pokemon.count()}")
+                Button(onClick = { viewModel.execute(PokedexViewModel.Action.PokemonClicked(Pokemon(1, "Test"), "Caught")) }) {
                     Text("Reset!")
                 }
             }

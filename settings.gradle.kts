@@ -18,9 +18,10 @@ include(
     ":shared:library",
 
     ":shared:core:util",
+    ":shared:core:database",
 
-    ":shared:domain:pokemon:api",
-    ":shared:domain:pokemon:implementation",
+    ":shared:pokemon:pokedex:api",
+    ":shared:pokemon:pokedex:implementation",
 
     ":android:app"
 )
